@@ -1,0 +1,12 @@
+de/muehlbauer/assignment/order/api/enumeration/OrderStatus.class
+de/muehlbauer/assignment/order/api/enumeration/CoffeeType.class
+de/muehlbauer/assignment/order/api/dto/ItemDto.class
+de/muehlbauer/assignment/order/api/enumeration/CoffeeSize.class
+de/muehlbauer/assignment/order/api/dto/OrderDto.class
+de/muehlbauer/assignment/order/api/response/GetOrderStatusResponse.class
+de/muehlbauer/assignment/order/api/dto/OrderItemDto.class
+de/muehlbauer/assignment/order/api/response/AddOrderResponse.class
+de/muehlbauer/assignment/order/api/response/GeneralOrderApiResponse.class
+de/muehlbauer/assignment/order/api/enumeration/MilkType.class
+de/muehlbauer/assignment/order/api/enumeration/ServeType.class
+de/muehlbauer/assignment/order/api/request/AddOrderRequest.class
