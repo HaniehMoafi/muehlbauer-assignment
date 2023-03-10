@@ -15,8 +15,4 @@ public class OrderNumberGenerator {
         counter.incrementAndGet();
     }
 
-/*    @Scheduled(cron = "0 0 0 * * *")
-    void reset() {
-        counter.set(0);
-    }*/
 }

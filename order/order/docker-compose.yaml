@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+    muehlbauer-order:
+        container_name: muehlbauer-order
+        image: order:1.0.0
+        restart: always
+        networks:
+            - muehlbauer-assignment-bridge
+        ports:
+            - 8080:8080
+        environment:
+            JAVA_OPTS: >
+                -Dbarista.service.base.url=http://muehlbauer-barista:7070/v1/barista-order
+                -Dspring.h2.console.settings.web-allow-others=true
+
+    muehlbauer-barista:
+        container_name: muehlbauer-barista
+        image: barista:1.0.0
+        restart: always
+        networks:
+            - muehlbauer-assignment-bridge
+        ports:
+            - 7070:7070
+        environment:
+            JAVA_OPTS: >
+                -Dorder.service.base.url=http://muehlbauer-order:8080/v1/order/
+                -Dspring.h2.console.settings.web-allow-others=true
+
+networks:
+    muehlbauer-assignment-bridge:
+        driver: bridge

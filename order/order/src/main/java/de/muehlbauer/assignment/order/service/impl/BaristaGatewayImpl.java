@@ -7,6 +7,7 @@ import de.muehlbauer.assignment.barista.api.response.GetOrderStatus;
 import de.muehlbauer.assignment.order.exception.OrderServiceException;
 import de.muehlbauer.assignment.order.service.BaristaGateway;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -19,13 +20,14 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static de.muehlbauer.assignment.order.util.Constant.BARISTA_BASE_URL;
-
 @Service
 @RequiredArgsConstructor
 public class BaristaGatewayImpl implements BaristaGateway {
 
     private final RestTemplate restTemplate;
+
+    @Value("${barista.service.base.url}")
+    private String baristaBaseUrl;
 
 
     @Override
@@ -36,7 +38,7 @@ public class BaristaGatewayImpl implements BaristaGateway {
         HttpEntity<AddOrderRequest> request = new HttpEntity<>(orderRequest);
         GeneralBaristaApiResponse response = null;
         try {
-            response = restTemplate.postForEntity(BARISTA_BASE_URL, request, GeneralBaristaApiResponse.class).getBody();
+            response = restTemplate.postForEntity(baristaBaseUrl, request, GeneralBaristaApiResponse.class).getBody();
             checkBaristaHttpStatus(response);
         } catch (Throwable t) {
             handleBaristaException(t, "order.barista.add.not.completed");
@@ -45,7 +47,7 @@ public class BaristaGatewayImpl implements BaristaGateway {
 
     @Override
     public void cancelBaristaOrder(Integer orderNumber) throws OrderServiceException {
-        String url = urlBuilder(BARISTA_BASE_URL, "orderNumber", orderNumber);
+        String url = urlBuilder(baristaBaseUrl, "orderNumber", orderNumber);
         try {
             GeneralBaristaApiResponse response = restTemplate.exchange(url, HttpMethod.DELETE, null, GeneralBaristaApiResponse.class).getBody();
             checkBaristaHttpStatus(response);
@@ -56,7 +58,7 @@ public class BaristaGatewayImpl implements BaristaGateway {
 
     @Override
     public Map<Integer, String> getBaristaOrderStatus(List<Integer> orderNumbers) throws OrderServiceException {
-        String url = urlBuilder(BARISTA_BASE_URL, "orderNumbers", orderNumbers.stream().map(String::valueOf).collect(Collectors.joining(",")));
+        String url = urlBuilder(baristaBaseUrl, "orderNumbers", orderNumbers.stream().map(String::valueOf).collect(Collectors.joining(",")));
 
         GetOrderStatus response = null;
         try {

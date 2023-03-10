@@ -3,7 +3,7 @@
 Order service is a JAVA project which can save, cancel orders and get their status
 Reported by Muehlbauer.de company
 
-## clone
+## Clone
 
 run the below command:
 
@@ -25,3 +25,24 @@ git clone https://github.com/HaniehMoafi/muehlbauer-assignment-order.git
 
 
 ## Instruction
+
+build the api module (order-api) and push on an artifactory:
+
+```bash
+cd order-api
+docker build .
+```
+
+for building the order service run this command:
+
+```bash
+cd order
+docker build -t order:1.0.0 .
+```
+
+then to run the application:
+
+```bash
+cd order
+docker-compose up
+```

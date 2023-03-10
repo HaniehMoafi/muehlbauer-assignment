@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-public class OrderServiceException extends Exception {
+public class OrderServiceException extends RuntimeException {
 
     private String message;
 

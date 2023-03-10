@@ -51,6 +51,7 @@ public class OrderServiceImpl implements OrderService {
             orderItemEntity.setOrder(order);
             items.add(orderItemEntity);
             totalPrice = totalPrice.add(orderItemEntity.getPrice());
+            //todo count
         }
         order.setTotalPrice(totalPrice);
         orderItemRepository.saveAll(items);
